@@ -2,7 +2,19 @@ import sys
 import json
 import traceback
 
+from tkinter import Tk
+from tkinter.filedialog import askopenfilenames
+
 args = sys.argv[1:]
+
+if len(args) == 0:
+    Tk().withdraw()
+    file_paths = askopenfilenames(
+        initialdir="~/Desktop",
+        title="Select .json file to flip",
+        filetypes=(("json files", ".json"), ("all files", "*.*"))
+    )
+    args = list(file_paths)
 
 for arg in args:
     try:

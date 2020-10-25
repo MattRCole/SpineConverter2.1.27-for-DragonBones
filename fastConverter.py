@@ -1,13 +1,13 @@
-import sys, os
-
-from spBinaryReader import spBinaryReader
-from spJsonReader import spJsonReader
-from spBinaryWriter import spBinaryWriter
-from spJsonWriter import spJsonWriter
-from settings import SpineConverterSettings
-from dragonBonesFixer import DragonBonesFixer
-import re
+import os
+import sys
 import traceback
+
+from dragonBonesFixer import DragonBonesFixer
+from settings import SpineConverterSettings
+from spBinaryReader import spBinaryReader
+from spBinaryWriter import spBinaryWriter
+from spJsonReader import spJsonReader
+from spJsonWriter import spJsonWriter
 
 settings = SpineConverterSettings()
 args = sys.argv[1:]
@@ -27,7 +27,7 @@ if len(args) == 0:
 for arg in args:
     try:
         fileName = arg
-        if (fileName.endswith(".skel")):
+        if fileName.endswith(".skel"):
             print("Converting " + fileName.split("\\")[-1] + " into .json.")
 
             binaryReader = spBinaryReader()
@@ -38,7 +38,7 @@ for arg in args:
             jsonWriter.writeSkeletonDataFile(skeletonData, fileName.replace(".skel", ".json"))
 
             dragonBonesFixer.fixSpineConverterJson(fileName.replace(".skel", ".json"))
-        elif (fileName.endswith(".json")):
+        elif fileName.endswith(".json"):
             print("Converting " + fileName.split("\\")[-1] + " into .skel.")
 
             jsonReader = spJsonReader()

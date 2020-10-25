@@ -2,6 +2,9 @@ import json
 import os
 import sys
 
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+
 class SpineConverterSettings:
     def __init__(self):
         try:
@@ -43,6 +46,15 @@ class SpineConverterSettings:
         return True
 
     def getFilePath(self) -> bool:
+        filepath = ""
         if "filePath" in self.settings.keys():
-            return self.settings["filePath"]
-        return ""
+            filepath = self.settings["filePath"]
+        if filepath != "":
+            return filepath
+        Tk().withdraw()
+        filepath = askopenfilename(
+            initialdir="~/Desktop",
+            title="Select .skel or .json file to convert",
+            filetypes=(("skel files", ".skel"), ("json files", ".json"), ("all files", "*.*"))
+        )
+        return filepath
